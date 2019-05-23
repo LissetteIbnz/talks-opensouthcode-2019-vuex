@@ -1,7 +1,7 @@
 import Vue from "vue";
 import { Dispatch, Commit } from "./index";
 
-type OmitOwn<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
+export type OmitOwn<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 
 /**
  * Utility types to declare helper types

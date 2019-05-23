@@ -10,6 +10,7 @@ export {
   mapActions,
   mapMutations,
   createNamespacedHelpers,
+  OmitOwn,
 } from "./helpers";
 
 export {
