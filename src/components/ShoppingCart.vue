@@ -27,43 +27,32 @@
 <script lang="ts">
 import Vue, { PropType } from "vue";
 
-import store from "@/store";
+import store, { rootHelpers } from "@/store";
 import { cartHelpers } from '../store/modules/cart';
+import { OmitOwn, mapGetters } from '@/store/typings';
+import { CartItem, CheckoutStatus, Product } from '@/store/models';
+import { CartItemOmitId } from '../store/getters';
 
 export default Vue.extend({
   name: "ShoppingCart",
   computed: {
-    /**
-     * Eliminamos la computed property ya que las recibirá directamente del store
-     * Podemos pasar el getter de varias formas:
-     * 1) a través de this.$store.getters
-     *       total(): Number {
-     *         return this.$storeTS.getters.cartTotalPrice;
-     *       },
-     *
-     * 2) con el helper mapGetter
-     *      ...mapGetters({ total: "cartTotalPrice" }), // Donde total es el enlace con nombre diferente
-     */
-    // ...cartHelpers.mapGetters(["cartProducts","checkoutStatus"]),
-    ...cartHelpers.mapGetters(["checkoutStatus"]),
-    ...cartHelpers.mapGetters({ products: "cartProducts", total: "cartTotalPrice" }), // Creando un alias para el nombre
-    // total(): Number {
-    //   return store.getters.cartTotalPrice;
-    // },
-    // products(): ItemCart[] {
-    //   return store.getters.cartProducts;
-    // },
-    // checkoutStatus(): CheckoutStatus {
-    //   return store.state.checkoutStatus;
-    // },
-    // ...mapGetters({ total: "cartTotalPrice" }),
+    /** Enlazando a través del store */
+    total(): Number {
+      return store.getters.cartTotalPrice;
+    },
+    /** Usando la exportación directate de los helpers */
+    ...rootHelpers.mapGetters(["checkoutStatus"]),
+    /** Usando la exportación nombrada de loshelpers */
+    ...rootHelpers.mapGetters({
+      products: "cartProducts",
+    }),
   },
   methods: {
     ...cartHelpers.mapActions(["checkout"]),
-    // checkout(products: ItemCart[]) {
-    //   // this.$emit("checkout", products);
-    //   store.dispatch("checkout", products);
-    // },
+    checkout(products: Product[]) {
+      this.checkout(products);
+      // store.dispatch("checkout", products);
+    },
   },
 });
 </script>
