@@ -23,11 +23,11 @@
 </template>
 
 <script lang="ts">
-import Vue, { PropType } from "vue";
+import Vue from "vue";
+import { mapActions } from "vuex";
 
 import store from "@/store";
-import { Product, productsHelpers } from '@/store/modules/products';
-import { cartHelpers } from '@/store/modules/cart';
+import { Product } from '@/store/models';
 
 export default Vue.extend({
   name: "ProductList",
@@ -37,12 +37,10 @@ export default Vue.extend({
     },
   },
   created() {
-    // La acción espera un parámetro de entrada
-    this.getAllProducts(undefined);
+    store.dispatch("getAllProducts", undefined);
   },
   methods: {
-    ...productsHelpers.mapActions(["getAllProducts"]),
-    ...cartHelpers.mapActions(["addToCart"])
+    ...mapActions(["addToCart"]),
   },
 });
 </script>

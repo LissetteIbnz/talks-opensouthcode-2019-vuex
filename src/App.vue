@@ -34,8 +34,9 @@ export default Vue.extend({
     loading(): boolean {
       return store.state.loading;
     },
-    // Acceso a los RootMutations desde store
-    // store.commit("setLoading", { show: true });
-  }
+  },
+  created() {
+    store.dispatch("getAllProducts", undefined);
+  },
 });
 </script>

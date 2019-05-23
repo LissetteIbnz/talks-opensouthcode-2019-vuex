@@ -1,6 +1,6 @@
 import { createNamespacedHelpers, DefineModule } from "vuex";
-import * as shop from "../../api/shop";
-import { RootMutations } from "..";
+import * as shop from "@/api/shop";
+import { RootMutations } from "../mutations";
 
 /** State */
 export interface Product {

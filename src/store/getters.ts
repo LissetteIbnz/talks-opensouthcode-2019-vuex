@@ -1,8 +1,9 @@
-import { CheckoutStatus, CartItem } from "./models";
 import { RootState } from ".";
+import { CartItem, CheckoutStatus } from "./models";
 import { DefineGetters, OmitOwn } from "./typings";
 
 export type CartItemOmitId = OmitOwn<CartItem, "id">;
+
 // Getters type
 // key: getter name
 // value: return type of getter

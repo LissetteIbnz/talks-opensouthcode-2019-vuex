@@ -25,33 +25,38 @@
 </template>
 
 <script lang="ts">
-import Vue, { PropType } from "vue";
+import Vue from "vue";
+import { mapGetters } from "vuex";
 
-import store, { rootHelpers } from "@/store";
-import { cartHelpers } from '../store/modules/cart';
-import { OmitOwn, mapGetters } from '@/store/typings';
-import { CartItem, CheckoutStatus, Product } from '@/store/models';
-import { CartItemOmitId } from '../store/getters';
+import store from "@/store";
+import { Product, CheckoutStatus } from '@/store/models';
+import { CartItemOmitId } from '@/store/getters';
 
 export default Vue.extend({
   name: "ShoppingCart",
   computed: {
-    /** Enlazando a través del store */
+  //   /** Enlazando a través del store */
     total(): Number {
       return store.getters.cartTotalPrice;
     },
-    /** Usando la exportación directate de los helpers */
-    ...rootHelpers.mapGetters(["checkoutStatus"]),
-    /** Usando la exportación nombrada de loshelpers */
-    ...rootHelpers.mapGetters({
-      products: "cartProducts",
-    }),
+    products(): CartItemOmitId[] {
+      return store.getters.cartProducts;
+    },
+    // checkoutStatus(): CheckoutStatus {
+    //   return store.getters.checkoutStatus;
+    // },
+
+    // ...rootHelpers.mapGetters(["products","checkoutStatus"]),
+  //   /** Usando la exportación directate de los helpers */
+    ...mapGetters(["checkoutStatus"]),
+  //   /** Usando la exportación nombrada de loshelpers */
+    // ...rootHelpers.mapGetters({
+    //   products: "products",
+    // }),
   },
   methods: {
-    ...cartHelpers.mapActions(["checkout"]),
     checkout(products: Product[]) {
-      this.checkout(products);
-      // store.dispatch("checkout", products);
+      store.dispatch("checkout", products);
     },
   },
 });
