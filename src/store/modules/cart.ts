@@ -46,13 +46,17 @@ export interface CartMutations {
 /** Cart helpers: matState, mapGetters, mapActions, mapMutations  */
 export const cartHelpers = createNamespacedHelpers<CartState, CartGetters, CartMutations, CartActions>("cart");
 
+export interface ProductsModuleMutation {
+  ["products/decrementProductInventory"]: { id: number; };
+}
+
 /** Cart module definition */
 export const cart: DefineModule<
   CartState, CartGetters, CartMutations, CartActions,
   // ExtraGetters, ExtraMutations, ExtraActions
-  {}, ProductsMutations, {},
+  {}, {}, {},
   // RootState, RootGetters, RootMutations, RootActions
-  RootState> = {
+  RootState, {}, ProductsModuleMutation, {}> = {
   namespaced: true,
   // State
   state: {
@@ -96,9 +100,8 @@ export const cart: DefineModule<
         commit("addToCart", {
           id: product.id,
         });
-        // commit("setLoading", { show: true }, { root: true})
-        // ARRRRGGG
-        commit<any>("products/decrementProductInventory", { id: product.id }, { root : true } as any);
+        // Indicamos que la mutación se haga realiza a nivel de root
+        commit("products/decrementProductInventory", { id: product.id}, { root: true });
       }
     },
   },
