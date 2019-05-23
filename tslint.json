@@ -5,15 +5,19 @@
   ],
   "linterOptions": {
     "exclude": [
-      "node_modules/**"
+      "node_modules/**",
+      "src/store/typings/helpers.d.ts"
     ]
   },
   "rules": {
-    "quotemark": [true, "single"],
+    "quotemark": [true, "double"],
     "indent": [true, "spaces", 2],
     "interface-name": false,
     "ordered-imports": false,
     "object-literal-sort-keys": false,
-    "no-consecutive-blank-lines": false
+    "no-consecutive-blank-lines": false,
+    "no-empty-interface": false,
+    "arrow-parens": false,
+    "no-shadowed-variable": false
   }
 }

@@ -16,6 +16,12 @@
     "paths": {
       "@/*": [
         "src/*"
+      ],
+      "vuex": [
+        "src/store/typings/index.d.ts",
+        "src/store/typings/helpers.d.ts",
+        "src/store/typings/vue.d.ts",
+        "src/store/typings/utils.d.ts"
       ]
     },
     "lib": [
